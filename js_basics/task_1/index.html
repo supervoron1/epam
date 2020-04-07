@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Card validation</title>
+</head>
+<body>
+<form id="email_form" method="post" onsubmit="validate('email');">
+    <input class="input_field" type="text" id="email" name="email" placeholder="Enter email here"
+           required/>
+    <input type="submit" value="Submit"/>
+</form>
+<form id="pass_form" method="post" onsubmit="validate('pass');">
+    <input class="input_field" type="password" id="pass" name="pass"
+           placeholder="Enter password here (min 8 characters, at least one digit)" required/>
+    <input type="submit" value="Submit"/>
+</form>
+<form id="card_form" method="post" onsubmit="validate('card');">
+    <input class="input_field" type="number" id="card" name="card"
+           placeholder="Enter card number here" required/>
+    <input type="submit" value="Submit"/>
+</form>
+<form id="card_valid_form" method="post" onsubmit="validate('card_valid');">
+    <input class="input_field" type="text" id="card_valid" name="card"
+           placeholder="Enter valid through date here (MM/YYYY)" required/>
+    <input type="submit" value="Submit"/>
+</form>
+<form id="card_owner_form" method="post" onsubmit="validate('owner');">
+    <input class="input_field" type="text" id="owner" name="owner"
+           placeholder="Enter your name as on your card (John Smith)" required/>
+    <input type="submit" value="Submit"/>
+</form>
+<form id="cvv_form" method="post" onsubmit="validate('cvv');">
+    <input class="input_field" type="number" id="cvv" name="cvv" placeholder="Enter CVV here (123)"
+           required/>
+    <input type="submit" value="Submit"/>
+</form>
+<script>
+  function validate(elem) {
+    let regexp;
+    switch (elem) {
+      case 'email':
+        regexp = /^([A-Za-z0-9_\-\.])+@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+        break;
+      case 'pass':
+        regexp = /^([^!@#$%^&*()_])(?=.*?[0-9]).{7,}$/;
+        break;
+      case 'card':
+        regexp = /^\d{12}$/;
+        break;
+      case 'card_valid':
+        regexp = /^(0[1-9]|1[012])[- /.](19|20)\d{2}$/;
+        break;
+      case 'owner':
+        regexp = /^[A-Za-z]+\s[A-Za-z]+$/;
+        break;
+      case 'cvv':
+        regexp = /^\d{3}$/;
+        break;
+    }
+    let field = document.getElementById(elem).value;
+    if (regexp.test(field) === false) {
+      alert('Введите корректные данные');
+      return false;
+    }
+  }
+</script>
+</body>
+</html>
+
+<style>
+    .input_field {
+        width: 400px;
+        margin-top: 10px;
+    }
+</style>
